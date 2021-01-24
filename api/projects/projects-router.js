@@ -54,16 +54,17 @@ router.put("/:id", validateProjectId, async (req, res) => {
     const project = req.body;
     const { id } = req.params;
 
-    if (!req.body.description || !req.body.notes) {
-        res.status(400).json({ message: "Description and Notes are required" })
+    if (!req.body.description || !req.body.notes ) {
+        res.status(400).json({ message: "Name, Description, and Notes are required" })
     } else {
-    try {
-        const update = await projectsModel.update(id, project);
-        res.status(201).json(update);
-    } catch {
-        res.status(500).json({ message: "Problem with the server" });
-    }
-    }
+        projectsModel.update(id, project)
+        .then (action => {
+            res.status(200).json(action)
+        })
+        .catch(err => {
+            res.status(500).json({ message: err.message });
+        })
+        }
 })
 
 router.delete ("/:id", validateProjectId, async (req, res) => {
