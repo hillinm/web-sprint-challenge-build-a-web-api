@@ -112,9 +112,9 @@ A _"test"_ script already exists you can use to run tests against your code.
 
 After finishing your required elements, you can push your work further. These goals may or may not be things you have learned in this module but they build on the material you just studied. Time allowing, stretch your limits and see if you can deliver on the following optional goals:
 
-- [ ] Deploy the API to Heroku.
-- [ ] Configure the API to support environment variables.
-- [ ] Use middleware for validation of incoming data.
+- [X] Deploy the API to Heroku.
+- [X] Configure the API to support environment variables.
+- [X] Use middleware for validation of incoming data.
 
 ## Submission format
 
