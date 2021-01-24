@@ -41,16 +41,21 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", validateActionId, async (req, res) => {
-    const actions = req.body;
+    const project = req.body;
     const { id } = req.params;
 
-    try {
-        const update = await actionsModel.update(id, actions);
-        res.status(201).json(update);
-    } catch {
-        res.status(500).json({ message: "Problem with the server" });
-    }
-});
+    if (!req.body.description || !req.body.notes ) {
+        res.status(400).json({ message: "Name, Description, and Notes are required" })
+    } else {
+        actionsModel.update(id, project)
+        .then (action => {
+            res.status(200).json(action)
+        })
+        .catch(err => {
+            res.status(500).json({ message: err.message });
+        })
+        }
+})
 
 router.delete ("/:id", validateActionId, async (req, res) => {
     const { id } = req.params;
