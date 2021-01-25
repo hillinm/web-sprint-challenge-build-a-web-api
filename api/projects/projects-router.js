@@ -37,16 +37,18 @@ router.get("/:id/actions", validateProjectId, async (req, res) => {
 })
 
 router.post ("/", async (req, res) => {
-    const project = req.body;
-    if (project) {
-        try {
-            const newProject = await projectsModel.insert(project);
-            res.status(201).json(newProject);
-        } catch {
-            res.status(500).json({ message: "Problem with the server" });
-        }
+    const newProject = req.body;
+
+    if (!req.body.description || !req.body.notes) {
+        res.status(400).json({ message: "Name, Description, and Notes are required" });
     } else {
-        res.status(400).json({ message: "Problem with the request" });
+        projectsModel.insert(newProject)
+        .then(() => {
+            res.status(201).json({ newProject });
+        })
+        .catch(() => {
+            res.status(500).json({ message: "Problem with the server" });
+        })
     }
 })
 
